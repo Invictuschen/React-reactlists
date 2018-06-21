@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium from 'radium';
-import { StyleRoot } from 'radium'
+
 class App extends Component {
     state = {
         persons:[
@@ -60,10 +59,7 @@ class App extends Component {
           border:'1px solid blue',
           padding: '8px',
           cursor: 'pointer',
-          ':hover':{
-              backgroundColor:'lightgreen',
-              color:'black'
-          }
+
       }
       const classes=[];
       if(this.state.persons.length <= 2)
@@ -85,10 +81,7 @@ class App extends Component {
       // }
       {
           style.backgroundColor='red';
-          style[':hover'] = {
-              backgroundColor:'salmon',
-              color:'black'
-          }
+
           persons=this.state.persons.map((person,index)=>{
               return(
                   <Person name={person.name}
@@ -102,16 +95,14 @@ class App extends Component {
 
 
       return (
-          <StyleRoot>
           <div className="App">
               <p className={classes.join(' ')}>This is a practice</p>
               {/*dynamic class need to make the array use .join function to reach an array with ' '*/}
               <button onClick={this.togglePersonHandler} style={style}>Toggle persons</button>
               {persons}
           </div>
-          </StyleRoot>
         )
   }
 }
 
-export default Radium(App);
+export default App;
