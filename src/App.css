@@ -21,7 +21,21 @@
 .App-intro {
   font-size: large;
 }
-
+.box {
+  color:pink;
+  font:inherit;
+  border:1px solid purple;
+  padding: 2px;
+  cursor: pointer;
+  margin: auto;
+  width:400px;
+}
+.red{
+  color:red;
+}
+.bold{
+  font-weight: bold;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

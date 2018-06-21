@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium from 'radium';
+import { StyleRoot } from 'radium'
 class App extends Component {
-    prop= 1;
     state = {
         persons:[
             {id:'l1',name:'Yong', age:22, hobby:'football'},
@@ -11,35 +12,6 @@ class App extends Component {
         ],
         personShow:false
     };
-
-
-    onNamechange=(newName)=>
-    {
-        if(this.prop===1)
-        {
-            this.prop = 2;
-            this.setState(
-                {
-                    persons:[
-                        {name:newName, age:221, hobby:'football'},
-                        {name:'Liangs', age:321, hobby:'basketball'}
-                    ]
-                }
-            )
-        }
-
-        else{
-            this.prop = 1;
-            this.setState(
-                {
-                    persons:[
-                        {name:'Yong', age:22, hobby:'football'},
-                        {name:'Liang', age:32, hobby:'basketball'}
-                    ]
-                }
-            )
-        }
-    }
     onClear=()=>
     {
         document.getElementById('sec').style.display="none";
@@ -81,6 +53,28 @@ class App extends Component {
   render() {
      // return React.createElement('div',null,React.createElement('h1',null,'I\'m a react application'));
       let persons=null;
+      const style={
+          backgroundColor:'green',
+          color:'white',
+          font:'inherit',
+          border:'1px solid blue',
+          padding: '8px',
+          cursor: 'pointer',
+          ':hover':{
+              backgroundColor:'lightgreen',
+              color:'black'
+          }
+      }
+      const classes=[];
+      if(this.state.persons.length <= 2)
+      {
+          classes.push('red');
+      }
+
+      if(this.state.persons.length <= 1)
+      {
+          classes.push('bold');
+      }
       if(this.state.personShow)
       // {
       //     persons=( <div>
@@ -89,7 +83,13 @@ class App extends Component {
       //         <Person  name={this.state.persons[1].name} age={this.state.persons[1].name}>skiing </Person>
       //     </div>);
       // }
-      {     persons=this.state.persons.map((person,index)=>{
+      {
+          style.backgroundColor='red';
+          style[':hover'] = {
+              backgroundColor:'salmon',
+              color:'black'
+          }
+          persons=this.state.persons.map((person,index)=>{
               return(
                   <Person name={person.name}
                             age={person.age}
@@ -99,12 +99,19 @@ class App extends Component {
               )
           })
       }
-      return (<div id='sec'>
-              <button onClick={this.togglePersonHandler}>Toggle persons</button>
+
+
+      return (
+          <StyleRoot>
+          <div className="App">
+              <p className={classes.join(' ')}>This is a practice</p>
+              {/*dynamic class need to make the array use .join function to reach an array with ' '*/}
+              <button onClick={this.togglePersonHandler} style={style}>Toggle persons</button>
               {persons}
           </div>
+          </StyleRoot>
         )
   }
 }
 
-export default App;
+export default Radium(App);
